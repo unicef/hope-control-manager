@@ -1,109 +1,109 @@
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
+-   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
 
-  - repo: https://github.com/djlint/djLint
+-   repo: https://github.com/djlint/djLint
     rev: v1.36.4
     hooks:
-      - id: djlint-reformat
+    -   id: djlint-reformat
         args: ["--configuration", "djlint.toml"]
 
-  - repo: https://github.com/returntocorp/semgrep
-    rev: v1.141.0
+-   repo: https://github.com/returntocorp/semgrep
+    rev: v1.142.0
     hooks:
-      - id: semgrep
+    -   id: semgrep
         exclude: '(\.semgrep/|docs/)'
         exclude_types:
-          - yaml
+        -   yaml
         args:
-          - scan
-          - --config
-          - .semgrep/
+        -   scan
+        -   --config
+        -   .semgrep/
           # Do not try to scan '.semgrep/' directories as they contain test files
           # thus they will trigger findings.
-          - --exclude=.semgrep/
-          - --exclude=docs/_scripts/
+        -   --exclude=.semgrep/
+        -   --exclude=docs/_scripts/
           # Set the exit code to non-zero if there are findings.
-          - --error
+        -   --error
           # Do not check for version updates, it slows down the execution.
-          - --disable-version-check
+        -   --disable-version-check
           # Quiet mode in order to not pollute the pre-commit outputs.
           # Replace --quiet with --verbose to debug issues.
-          - --quiet
+        -   --quiet
 
-  - repo: https://github.com/python-jsonschema/check-jsonschema
+-   repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.34.1
     hooks:
-      - id: check-github-workflows
-        args: [ "--verbose" ]
+    -   id: check-github-workflows
+        args: ["--verbose"]
 
-  - repo: https://github.com/tox-dev/tox-ini-fmt
+-   repo: https://github.com/tox-dev/tox-ini-fmt
     rev: "1.7.0"
     hooks:
-      - id: tox-ini-fmt
-        args: [ "-p", "lint" ]
+    -   id: tox-ini-fmt
+        args: ["-p", "lint"]
 
-  - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: "v2.11.0"
+-   repo: https://github.com/tox-dev/pyproject-fmt
+    rev: "v2.11.1"
     hooks:
-      - id: pyproject-fmt
+    -   id: pyproject-fmt
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.2
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.4
     hooks:
-      - id: ruff
-      - id: ruff-format
+    -   id: ruff
+    -   id: ruff-format
         args:
-          - --check
-          - --config
-          - ruff.toml
+        -   --check
+        -   --config
+        -   ruff.toml
 
-  - repo: https://github.com/saxix/pch
+-   repo: https://github.com/saxix/pch
     rev: '0.2'
     hooks:
 
-      - id: check-missed-migrations
+    -   id: check-missed-migrations
         args:
-          - src
-        stages: [ pre-commit ]
-        additional_dependencies: [ setuptools ]
+        -   src
+        stages: [pre-commit]
+        additional_dependencies: [setuptools]
 
-      - id: check-untracked
+    -   id: check-untracked
         args:
-          - src
-          - tests
-        stages: [ pre-push ]
+        -   src
+        -   tests
+        stages: [pre-push]
 
-      - id: check-forbidden
+    -   id: check-forbidden
         args:
-          - -i
-          - "pyproject.toml"
-          - -p
-          - "/\\[tool.uv.sources\\]/"
-        stages: [ pre-push ]
+        -   -i
+        -   "pyproject.toml"
+        -   -p
+        -   "/\\[tool.uv.sources\\]/"
+        stages: [pre-push]
 
-      - id: check-tailwind
+    -   id: check-tailwind
         name: check tailwind CSS ready for production
         files: src/hope_control_manager/ui/theme/static_src/src/styles.scss
         args:
-          - -o
-          - src/hope_control_manager/ui/theme/static/css/styles.css
+        -   -o
+        -   src/hope_control_manager/ui/theme/static/css/styles.css
 
-      - id: check-minimized
+    -   id: check-minimized
         name: check missing minimized javascript
         files: (\.js)$
         exclude: (\.min\.js)$
         args:
-          - -i
-          - "src/hope_control_manager/ui/theme/static_src/*.js"
+        -   -i
+        -   "src/hope_control_manager/ui/theme/static_src/*.js"
 
-      - id: check-forbidden
+    -   id: check-forbidden
         name: check pyproject to avoid editable sources/deps
         files: pyproject.toml
         language: python
         args:
-          - -p
-          - /\[tool\.uv\.sources\]\s/s
+        -   -p
+        -   /\[tool\.uv\.sources\]\s/s

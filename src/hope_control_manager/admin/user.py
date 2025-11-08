@@ -11,12 +11,12 @@ admin.site.unregister(Group)
 
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin[User], BaseModelAdmin):
+class UserAdmin(BaseUserAdmin[User], BaseModelAdmin):  # type: ignore[misc]
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
 
 
 @admin.register(Group)
-class GroupAdmin(BaseGroupAdmin, BaseModelAdmin):
+class GroupAdmin(BaseGroupAdmin, BaseModelAdmin):  # type: ignore[misc]
     pass
