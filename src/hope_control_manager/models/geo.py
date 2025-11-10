@@ -1,6 +1,3 @@
-# - Country
-# - AreaType
-# - Area
 from typing import Any
 
 import requests
@@ -12,6 +9,8 @@ from mptt.managers import TreeManager
 from mptt.models import MPTTModel
 from mptt.querysets import TreeQuerySet
 from natural_keys import NaturalKeyModel
+
+from hope_control_manager.models.base import AbstractModel
 
 
 class ValidityQuerySet(TreeQuerySet):
@@ -48,7 +47,7 @@ class ValidityManager(TreeManager):
         )
 
 
-class Country(NaturalKeyModel, MPTTModel, models.Model):
+class Country(NaturalKeyModel, MPTTModel, AbstractModel):
     name = models.CharField(max_length=255, db_index=True, db_collation="und-ci-det")
     short_name = models.CharField(max_length=255, db_index=True, db_collation="und-ci-det")
     iso_code2 = models.CharField(max_length=2, unique=True, help_text="ISO 3166-1 alpha-2 two-letter country codes")
@@ -68,7 +67,7 @@ class Country(NaturalKeyModel, MPTTModel, models.Model):
     valid_until = models.DateTimeField(blank=True, null=True)
     extras = JSONField(default=dict, blank=True)
 
-    objects = ValidityManager()
+    objects = ValidityManager()  # type: ignore[misc]
 
     class Meta:
         verbose_name_plural = "Countries"
@@ -89,7 +88,7 @@ class Country(NaturalKeyModel, MPTTModel, models.Model):
         ]
 
 
-class AreaType(NaturalKeyModel, MPTTModel, models.Model):
+class AreaType(NaturalKeyModel, MPTTModel, AbstractModel):
     name = models.CharField(max_length=255, db_index=True, db_collation="und-ci-det")
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     area_level = models.PositiveIntegerField(default=1)
@@ -105,7 +104,7 @@ class AreaType(NaturalKeyModel, MPTTModel, models.Model):
     valid_until = models.DateTimeField(blank=True, null=True)
     extras = JSONField(default=dict, blank=True)
 
-    objects = ValidityManager()
+    objects = ValidityManager()  # type: ignore[misc]
 
     class Meta:
         verbose_name_plural = "Area Types"
@@ -116,7 +115,7 @@ class AreaType(NaturalKeyModel, MPTTModel, models.Model):
         return self.name
 
 
-class Area(NaturalKeyModel, MPTTModel, models.Model):
+class Area(NaturalKeyModel, MPTTModel, AbstractModel):
     geonameid = models.IntegerField(unique=True, db_index=True)
     name = models.CharField(max_length=255)
     parent = TreeForeignKey(
@@ -135,7 +134,7 @@ class Area(NaturalKeyModel, MPTTModel, models.Model):
     valid_until = models.DateTimeField(blank=True, null=True)
     extras = JSONField(default=dict, blank=True)
 
-    objects = ValidityManager()
+    objects = ValidityManager()  # type: ignore[misc]
 
     class Meta:
         verbose_name_plural = "Areas"

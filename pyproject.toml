@@ -25,7 +25,7 @@ dynamic = [
 dependencies = [
   "celery",
   "django==5.2.*",
-  "django-admin-extra-buttons>=2.1.1",
+  "django-admin-extra-buttons>=2.1.2",
   "django-adminactions>=2.4",
   "django-adminfilters>=2.6",
   "django-celery-boost>=0.6.2",

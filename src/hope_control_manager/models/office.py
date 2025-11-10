@@ -2,8 +2,10 @@ from typing import Any
 
 from django.db import models
 
+from hope_control_manager.models.base import AbstractModel
 
-class BusinessArea(models.Model):
+
+class BusinessArea(AbstractModel):
     code = models.CharField(max_length=10, unique=True)
     slug = models.CharField(max_length=250, unique=True, db_index=True)
     name = models.CharField(max_length=255)

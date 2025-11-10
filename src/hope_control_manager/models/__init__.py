@@ -1,4 +1,4 @@
-from .fi import FinancialInstitution
+from .fi import Branch, FinancialInstitution
 from .fsp import FinancialServiceProvider
 from .geo import Area, AreaType, Country
 from .rates import ExchangeRate
@@ -11,5 +11,6 @@ __all__ = [
     "ExchangeRate",
     "FinancialInstitution",
     "FinancialServiceProvider",
+    "Branch",
     "User",
 ]
